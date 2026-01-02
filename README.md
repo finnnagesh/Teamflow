@@ -1,5 +1,21 @@
 # Teamflow – Fullstack Setup Guide
 
+## Project Overview
+
+**Teamflow** is a collaborative team management and communication platform designed for developers and small teams. It combines **real-time chat**, **project & task management**, and **GitHub integration** into a single system so users don’t need to switch between multiple tools.
+
+The system is built as a **fullstack application** with a React frontend and a Django backend, supporting REST APIs and WebSockets for real-time features.
+
+### Core Goals
+
+* Centralize **team collaboration**
+* Enable **real-time communication** using WebSockets
+* Track **projects, tasks, and commits** in one place
+* Integrate with **GitHub OAuth** for authentication
+* Provide a lightweight **agent** for extended functionality
+
+---
+
 This repository contains a **fullstack application** with:
 
 * **Backend**: Django + Django REST Framework + Django Channels (WebSockets)
@@ -33,7 +49,47 @@ git --version
 
 ---
 
-## 2. Project Structure Overview
+## 2. Project Features
+
+### 🔐 Authentication & Users
+
+* Custom user system (Django)
+* GitHub OAuth login
+* Role-based access (members, owners)
+
+### 💬 Real-time Chat
+
+* WebSocket-based chat using **Django Channels**
+* Custom middleware for WebSocket authentication
+* Project-based chat rooms
+
+### 📁 Project Management
+
+* Create and manage projects
+* Invite users via join requests
+* Control access at project level
+
+### ✅ Task Management
+
+* Create, update, and assign tasks
+* Track task status
+* Link tasks with commits
+
+### 🔗 GitHub Integration
+
+* GitHub OAuth for secure login
+* Track task-related commits
+* Store commit history per task
+
+### 🧠 Agent Support
+
+* External agent binary (`agent.v1`)
+* Downloadable from frontend
+* Designed for future automation / background jobs
+
+---
+
+## 3. Project Structure Overview
 
 ```text
 .
@@ -244,8 +300,45 @@ npm run dev
 
 ---
 
+## 7. Security Notes ⚠️
 
-##  Author
+* ❌ **Never commit `.env` files**
+* ✅ Always commit `.env.example`
+* Rotate GitHub OAuth secrets if leaked
+* Use strong `SECRET_KEY` in production
+
+---
+
+## 8. Production Notes (Optional)
+
+For production deployment, consider:
+
+* Dockerizing backend & frontend
+* Using Nginx as reverse proxy
+* Running Django with Gunicorn + Daphne
+* Using Redis for Channels
+
+---
+
+## 9. Troubleshooting
+
+### Port already in use
+
+```bash
+lsof -i :8000
+kill -9 <PID>
+```
+
+### Node issues
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+---
+
+## 10. Author
 
 **Nagesh Arjariya**
 Fullstack Developer (Django + React)
